@@ -23,7 +23,7 @@ jobs:
 
     - name: Adicionar upstream remote
       run: |
-        git remote add upstream https://github.com/FR33THYFRI3THY/ULtimate-Windows-Optimization-Guide || true
+        git remote add upstream https://github.com/FR33THYFR33THY/Ultimate-Windows-Optimization-Guide.git || true
 
     - name: Fetch upstream
       run: git fetch upstream
