@@ -61,13 +61,19 @@ $MultilineComment = @"
 <?xml version="1.0" encoding="utf-16"?>
 <ArrayOfProfile>
   <Profile>
-    <ProfileName>Base Profile</ProfileName>
+    <ProfileName />
     <Executeables />
     <Settings>
       <ProfileSetting>
         <SettingNameInfo> </SettingNameInfo>
         <SettingID>390467</SettingID>
         <SettingValue>2</SettingValue>
+        <ValueType>Dword</ValueType>
+      </ProfileSetting>
+      <ProfileSetting>
+        <SettingNameInfo />
+        <SettingID>983226</SettingID>
+        <SettingValue>1</SettingValue>
         <ValueType>Dword</ValueType>
       </ProfileSetting>
       <ProfileSetting>
@@ -109,7 +115,7 @@ $MultilineComment = @"
       <ProfileSetting>
         <SettingNameInfo>Vertical Sync</SettingNameInfo>
         <SettingID>11041231</SettingID>
-        <SettingValue>1620202130</SettingValue>
+        <SettingValue>138504007</SettingValue>
         <ValueType>Dword</ValueType>
       </ProfileSetting>
       <ProfileSetting>
@@ -205,7 +211,7 @@ $MultilineComment = @"
       <ProfileSetting>
         <SettingNameInfo>Anisotropic filtering mode</SettingNameInfo>
         <SettingID>282245910</SettingID>
-        <SettingValue>0</SettingValue>
+        <SettingValue>1</SettingValue>
         <ValueType>Dword</ValueType>
       </ProfileSetting>
       <ProfileSetting>
@@ -247,6 +253,12 @@ $MultilineComment = @"
       <ProfileSetting>
         <SettingNameInfo>Vulkan/OpenGL present method</SettingNameInfo>
         <SettingID>550932728</SettingID>
+        <SettingValue>0</SettingValue>
+        <ValueType>Dword</ValueType>
+      </ProfileSetting>
+      <ProfileSetting>
+        <SettingNameInfo />
+        <SettingID>1343646814</SettingID>
         <SettingValue>0</SettingValue>
         <ValueType>Dword</ValueType>
       </ProfileSetting>

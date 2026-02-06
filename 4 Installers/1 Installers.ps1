@@ -61,14 +61,15 @@
     Write-Host " 7. Escape From Tarkov"
     Write-Host " 8. GOG launcher"
     Write-Host " 9. Google Chrome"
-    Write-Host "10. League Of Legends"
-    Write-Host "11. Notepad ++"
-    Write-Host "12. OBS Studio"
-	Write-Host "13. Roblox"
-    Write-Host "14. Rockstar Games"
-    Write-Host "15. Steam"
-    Write-Host "16. Ubisoft Connect"
-    Write-Host "17. Valorant"
+    Write-Host "10. Firefox"
+    Write-Host "11. League Of Legends"
+    Write-Host "12. Notepad ++"
+    Write-Host "13. OBS Studio"
+	Write-Host "14. Roblox"
+    Write-Host "15. Rockstar Games"
+    Write-Host "16. Steam"
+    Write-Host "17. Ubisoft Connect"
+    Write-Host "18. Valorant"
 	              }
 	show-menu
     while ($true) {
@@ -175,12 +176,46 @@ Write-Host "Installing: Google Chrome . . ."
 Get-FileFromWeb -URL "https://dl.google.com/dl/chrome/install/googlechromestandaloneenterprise64.msi" -File "$env:TEMP\Chrome.msi"
 # install google chrome
 Start-Process -wait "$env:TEMP\Chrome.msi" -ArgumentList "/quiet"
+# add chrome policies
+cmd /c "reg add `"HKLM\SOFTWARE\Policies\Google\Chrome`" /v `"StartupBoostEnabled`" /t REG_DWORD /d `"0`" /f >nul 2>&1"
+cmd /c "reg add `"HKLM\SOFTWARE\Policies\Google\Chrome`" /v `"HardwareAccelerationModeEnabled`" /t REG_DWORD /d `"0`" /f >nul 2>&1"
+cmd /c "reg add `"HKLM\SOFTWARE\Policies\Google\Chrome`" /v `"BackgroundModeEnabled`" /t REG_DWORD /d `"0`" /f >nul 2>&1"
+cmd /c "reg add `"HKLM\SOFTWARE\Policies\Google\Chrome`" /v `"HighEfficiencyModeEnabled`" /t REG_DWORD /d `"1`" /f >nul 2>&1"
+# remove logon chrome
+cmd /c "reg delete `"HKLM\Software\Microsoft\Active Setup\Installed Components\{8A69D345-D564-463c-AFF1-A69D9E530F96}`" /f >nul 2>&1"
+# disable chrome services
+$services = Get-Service | Where-Object { $_.Name -match 'Google' }
+foreach ($service in $services) {
+Set-Service -Name $service.Name -StartupType Disabled
+Stop-Service -Name $service.Name -Force
+}
+# remove chrome tasks
+Get-ScheduledTask | Where-Object {$_.Taskname -match 'GoogleUpdateTaskMachineCore'} | Unregister-ScheduledTask -Confirm:$false
+Get-ScheduledTask | Where-Object {$_.Taskname -match 'GoogleUpdateTaskMachineUA'} | Unregister-ScheduledTask -Confirm:$false
+Get-ScheduledTask | Where-Object {$_.Taskname -match 'GoogleUpdaterTaskSystem'} | Unregister-ScheduledTask -Confirm:$false
 # open ublock origin in web browser
 Start-Process "C:\Program Files\Google\Chrome\Application\chrome.exe" "https://chromewebstore.google.com/detail/ublock-origin-lite/ddkjiahejlhfcafbddmgiahcphecmpfh?hl=en"
 show-menu
 
       }
    10 {
+
+Clear-Host
+Write-Host "Installing: Firefox . . ."
+# Download Firefox
+$FirefoxInstaller = "$env:TEMP\Firefox.exe"
+Get-FileFromWeb -URL "https://download.mozilla.org/?product=firefox-latest-ssl&os=win64&lang=en-US" -File $FirefoxInstaller
+# Install Firefox
+Start-Process -FilePath $FirefoxInstaller `
+    -ArgumentList "/S" `
+    -Wait `
+    -NoNewWindow
+# uninstall mozilla maintenance service
+Start-Process -FilePath "C:\Program Files (x86)\Mozilla Maintenance Service\uninstall.exe" -ArgumentList "/S" -WindowStyle Hidden -Wait
+show-menu
+
+      }
+   11 {
 
 Clear-Host
 Write-Host "Installing: League Of Legends . . ."
@@ -191,7 +226,7 @@ Start-Process "$env:TEMP\League Of Legends.exe"
 show-menu
 
       }
-   11 {
+   12 {
 
 Clear-Host
 Write-Host "Installing: Notepad ++ . . ."
@@ -284,18 +319,18 @@ Set-Content -Path "$env:AppData\Notepad++\config.xml" -Value $MultilineComment -
 show-menu
 
       }
-   12 {
+   13 {
 
 Clear-Host
 Write-Host "Installing: OBS Studio . . ."
 # download obs studio
-Get-FileFromWeb -URL "https://github.com/obsproject/obs-studio/releases/download/31.0.2/OBS-Studio-31.0.2-Windows-Installer.exe" -File "$env:TEMP\OBS Studio.exe"
+Get-FileFromWeb -URL "https://github.com/obsproject/obs-studio/releases/download/32.0.4/OBS-Studio-32.0.4-Windows-x64-Installer.exe" -File "$env:TEMP\OBS Studio.exe"
 # install obs studio
 Start-Process -wait "$env:TEMP\OBS Studio.exe" -ArgumentList "/S"
 show-menu
 
       }
-   13 {
+   14 {
 
 Clear-Host
 Write-Host "Installing: Roblox . . ."
@@ -306,7 +341,7 @@ Start-Process "$env:TEMP\Roblox.exe"
 show-menu
 
       }
-   14 {
+   15 {
 
 Clear-Host
 Write-Host "Installing: Rockstar Games . . ."
@@ -317,7 +352,7 @@ Start-Process "$env:TEMP\Rockstar Games.exe"
 show-menu
 
       }
-   15 {
+   16 {
 
 Clear-Host
 Write-Host "Installing: Steam . . ."
@@ -328,7 +363,7 @@ Start-Process -wait "$env:TEMP\Steam.exe" -ArgumentList "/S"
 show-menu
 
       }
-   16 {
+   17 {
 
 Clear-Host
 Write-Host "Installing: Ubisoft Connect . . ."
@@ -339,7 +374,7 @@ Start-Process -wait "$env:TEMP\Ubisoft Connect.exe" -ArgumentList "/S"
 show-menu
 
       }
-   17 {
+   18 {
 
 Clear-Host
 Write-Host "Installing: Valorant . . ."

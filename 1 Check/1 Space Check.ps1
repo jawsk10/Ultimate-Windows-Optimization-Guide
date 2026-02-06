@@ -17,4 +17,4 @@ Write-Host "Disable BitLocker Encryption"
 $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
 Start-Process diskmgmt.msc
 Start-Process explorer shell:MyComputerFolder
-Start-Process ms-settings:deviceencryption
+control /name Microsoft.BitLockerDriveEncryption

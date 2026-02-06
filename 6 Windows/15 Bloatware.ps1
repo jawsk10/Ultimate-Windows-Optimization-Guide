@@ -266,7 +266,7 @@ $progresspreference = 'silentlycontinue'
 Write-Host "Installing: Store. Please wait . . ."
 # install store
 Get-AppXPackage -AllUsers *Microsoft.WindowsStore* | Foreach {Add-AppxPackage -DisableDevelopmentMode -Register -ErrorAction SilentlyContinue "$($_.InstallLocation)\AppXManifest.xml"}
-Get-AppXPackage -AllUsers *Microsoft.Microsoft.StorePurchaseApp * | Foreach {Add-AppxPackage -DisableDevelopmentMode -Register -ErrorAction SilentlyContinue "$($_.InstallLocation)\AppXManifest.xml"}
+Get-AppXPackage -AllUsers *Microsoft.Microsoft.StorePurchaseApp* | Foreach {Add-AppxPackage -DisableDevelopmentMode -Register -ErrorAction SilentlyContinue "$($_.InstallLocation)\AppXManifest.xml"}
 Clear-Host
 Write-Host "Restart to apply . . ."
 $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
